@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "Like-Twitter", '#', id: "logo" %>
+        <% if current_user.present? %>
+          <nav>
+            <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to "Users", users_path %></li>
+              <li><%= link_to "Profile", user_path(current_user) %></li>
+              <li><%= link_to "Sign out", users_sign_out_path %></li>
+            </ul>
+          </nav>
+        <% end %>
+      </div>
+    </header>
+
+    <div class="container">
+      <% flash.each do |key, value| %>
+        <div class="alert <%= bootstrap_class_for(key) %>"><%= value %></div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>
