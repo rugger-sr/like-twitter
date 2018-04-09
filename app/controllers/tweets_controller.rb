@@ -9,12 +9,13 @@ class TweetsController < ApplicationController
   # GET /search
   def search_partial
     options = {
+      time: Time.now.to_i,
       limit: Tweet::DEFAULT_LIST_COUNT,
       offset: 0
     }
 
-    options[:user_id] = params[:user_id].to_i if params[:user_id].present?
     options[:time] = params[:time].to_i if params[:time].present?
+    options[:user_id] = params[:user_id].to_i if params[:user_id].present?
     options[:offset] = params[:offset].to_i if params[:offset].present?
 
     render partial: 'search_partial', locals: { tweets: Tweet.search(options), options: options }
@@ -36,7 +37,6 @@ class TweetsController < ApplicationController
     from_path = params[:tweet][:from_path] if params[:tweet][:from_path]
 
     if @tweet.save
-      @tweet.reload # これがないと投稿直後の一覧に最新が表示されなかった…いずれ修正する。
       if from_path.present?
         redirect_to from_path, notice: 'Tweet was successfully created.'
       else

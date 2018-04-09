@@ -8,6 +8,7 @@ class Tweet < ApplicationRecord
 
 	scope :with_search_options, -> (options) {
 		relation = offset(options[:offset]).limit(options[:limit])
+		relation = relation.where(user_id: options[:user_id]) if options[:user_id].present?
 		relation = relation.where('updated_at <= ?', Time.at(options[:time])) if options[:time].present?
 		relation.order(updated_at: :desc, id: :desc)
 	}
