@@ -14,16 +14,17 @@
 <%= javascript_tag do %>
   $(function() {
     $('.tweets').on('inview', '#loading-line', function(event, isInView) {
-      var loading = $(this)
-      var parent = loading.parent();
-
-      var params = {
-        user_id: loading.data('user'),
-        time: loading.data('time'),
-        offset: loading.data('offset')
-      }
-      params.user_id = loading.data('user');
       if (isInView) {
+        var loading = $(this)
+        var parent = loading.parent();
+
+        var params = {
+          user_id: loading.data('user'),
+          time: loading.data('time'),
+          offset: loading.data('offset')
+        }
+        params.user_id = loading.data('user');
+      
         $.get("<%= search_path %>",
           params,
           function(data){

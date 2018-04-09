@@ -36,10 +36,11 @@ class TweetsController < ApplicationController
     from_path = params[:tweet][:from_path] if params[:tweet][:from_path]
 
     if @tweet.save
+      @tweet.reload # これがないと投稿直後の一覧に最新が表示されなかった…いずれ修正する。
       if from_path.present?
         redirect_to from_path, notice: 'Tweet was successfully created.'
       else
-        redirect_to @tweet, notice: 'Tweet was successfully created.'
+        redirect_to user_tweet_path(@user, @tweet), notice: 'Tweet was successfully created.'
       end
     else
       render :new
@@ -52,7 +53,7 @@ class TweetsController < ApplicationController
       if from_path.present?
         redirect_to from_path, notice: 'Tweet was successfully updated.'
       else
-        redirect_to @tweet, notice: 'Tweet was successfully updated.'
+        redirect_to user_tweet_path(@user, @tweet), notice: 'Tweet was successfully updated.'
       end
     else
       render :edit
