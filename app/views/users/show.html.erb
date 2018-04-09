@@ -1,2 +1,11 @@
 <% provide(:title, @user.email) %>
-<h1><%= @user.email %></h1>
+
+<%
+  @tweet = Tweet.new
+  @tweet.user = @user
+%>
+<%= render 'tweets/form', tweet: @tweet %>
+
+<hr/>
+
+<%= render partial: 'tweets/tweet_list_partial', locals: { user: @user } %>

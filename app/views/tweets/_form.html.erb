@@ -1,0 +1,19 @@
+<%= form_with(model: [current_user, tweet], local: true) do |form| %>
+  <% if tweet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+
+      <ul>
+      <% tweet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.text_area :content, id: :tweet_content %>
+    <%= form.hidden_field :from_path, id: :tweet_from_path, value: request.fullpath %>
+    <%= form.submit %>
+  </div>
+<% end %>

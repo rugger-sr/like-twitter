@@ -3,8 +3,8 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -14,10 +14,11 @@
   <body>
     <header class="navbar navbar-fixed-top navbar-inverse">
       <div class="container">
-        <%= link_to "Like-Twitter", '#', id: "logo" %>
+        <%= link_to "Like-Twitter", root_path, id: "logo" %>
         <% if current_user.present? %>
           <nav>
             <ul class="nav navbar-nav navbar-right">
+              <li><%= link_to "Home", root_path %></li>
               <li><%= link_to "Users", users_path %></li>
               <li><%= link_to "Profile", user_path(current_user) %></li>
               <li><%= link_to "Sign out", users_sign_out_path %></li>
@@ -32,7 +33,32 @@
         <div class="alert <%= bootstrap_class_for(key) %>"><%= value %></div>
       <% end %>
 
-      <%= yield %>
+      <div class="row">
+        <aside class="col-md-3">
+          <section>
+            <% if current_user.present? %>
+              <h1>
+                <%= link_to current_user.email, edit_user_registration_path %>
+              </h1>
+              <table class="table table-condensed text-center">
+                <tr class="info">
+                  <th>Tweets</th>
+                  <th>Follows</th>
+                  <th>Followers</th>
+                </tr>
+                <tr>
+                  <td><%= current_user.tweets.count.to_s(:delimited) %></td>
+                  <td><%= 10000.to_s(:delimited) %></td>
+                  <td><%= 123456.to_s(:delimited) %></td>
+                </tr>
+              </table>
+            <% end %>
+          </section>
+        </aside>
+        <div class="main-content col-md-6">
+          <%= yield %>
+        </div>
+      </div>
     </div>
   </body>
 </html>

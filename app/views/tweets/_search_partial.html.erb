@@ -1,0 +1,21 @@
+<% tweets.each do |tweet| %>
+  <li class="tweet">
+    <div>
+      <%= tweet.user.email %> : posted at <%= tweet.updated_at %>
+    </div>
+    <div>
+      <%= tweet.content %>
+    </div>
+    <% if current_user.id == tweet.user_id %>
+      <div>
+        <%= link_to 'Edit', edit_user_tweet_path(current_user, tweet) %>
+        |
+        <%= link_to 'Destroy', user_tweet_path(current_user, tweet), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    <% end %>
+  </li>
+<% end %>
+
+<% if tweets.size > 0 %>
+  <%= render partial: 'tweets/loading', locals: { options: options.merge(offset: options[:offset] + tweets.count) } %>
+<% end %>

@@ -1,0 +1,37 @@
+<%
+  options = {
+    user_id: nil,
+    time: Time.now.to_i,
+    offset: 0,
+  }
+  options[:user_id] = user.id if user.present?
+%>
+
+<ul class="tweets">
+  <%= render partial: 'tweets/loading', locals: { options: options } %>
+</ul>
+
+<%= javascript_tag do %>
+  $(function() {
+    $('.tweets').on('inview', '#loading-line', function(event, isInView) {
+      var loading = $(this)
+      var parent = loading.parent();
+
+      var params = {
+        user_id: loading.data('user'),
+        time: loading.data('time'),
+        offset: loading.data('offset')
+      }
+      params.user_id = loading.data('user');
+      if (isInView) {
+        $.get("<%= search_path %>",
+          params,
+          function(data){
+            loading.remove();
+            parent.append(data)
+          }
+        );
+      }
+    });
+  });
+<% end %>
