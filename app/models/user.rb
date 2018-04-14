@@ -1,12 +1,12 @@
 class User < ApplicationRecord
-  has_many :tweets, autosave: true
-  has_many :follows, autosave: true
-  has_many :followers, autosave: true, :class_name => "Follow", :foreign_key => "target_user_id"
+  has_many :tweets, autosave: true, :dependent => :destroy
+  has_many :follows, autosave: true, :dependent => :destroy
+  has_many :followers, autosave: true, :class_name => "Follow", :foreign_key => "target_user_id", :dependent => :destroy
 
 	# Home画面の都合上、自分をフォローした状態をデフォルトにする
-  before_create  do
-  	binding.pry
-  	self.follows << Follow.new(user_id: self.id, target_user_id: self.id)
+  after_commit on: :create  do
+  	self.reload
+  	Follow.create!(user_id: self.id, target_user_id: self.id) if self.follows.count == 0
   end
   def follow_count
   	self.follows.where.not(target_user_id: self.id).count

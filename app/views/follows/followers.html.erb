@@ -1,0 +1,9 @@
+<% provide(:title, "Follower Users") %>
+
+<ul class="users">
+  <% @followers.each do |follower| %>
+    <li>
+      <%= link_to follower.user.email, user_path(follower.user) %>
+    </li>
+  <% end %>
+</ul>

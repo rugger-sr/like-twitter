@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'home/index'
 	root 'home#index'
 
@@ -10,7 +9,9 @@ Rails.application.routes.draw do
 
 	resources :users, only: [:show, :index] do
 	  resources :tweets, except: [:index]
+    resources :follows, only: [:index, :create, :destroy]
+    get :followers, to: 'follows#followers'
 	end
-  get '/tweets' => 'tweets#tweet_list_partial'
+#  get '/tweets' => 'tweets#tweet_list_partial'
   get '/search' => 'tweets#search_partial'
 end

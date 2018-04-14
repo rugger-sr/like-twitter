@@ -1,5 +1,11 @@
 <% provide(:title, "Home") %>
 
+<%
+  @tweet = Tweet.new
+  @tweet.user = current_user
+%>
+<%= render 'tweets/form', tweet: @tweet %>
+
 <hr/>
 
-<%= render partial: 'tweets/tweet_list_partial', locals: { follow_user: @user } %>
+<%= render partial: 'tweets/tweet_list_partial', locals: { follow_user: current_user } %>

@@ -43,8 +43,8 @@
               <table class="table table-condensed text-center">
                 <tr class="info">
                   <th>Tweets</th>
-                  <th>Follows</th>
-                  <th>Followers</th>
+                  <th><%= link_to "Follows", user_follows_path(current_user) %></th>
+                  <th><%= link_to "Followers", user_followers_path(current_user) %></th>
                 </tr>
                 <tr>
                   <td><%= current_user.tweets.count.to_s(:delimited) %></td>

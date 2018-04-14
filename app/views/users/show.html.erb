@@ -9,11 +9,11 @@
   %>
   <%= render 'tweets/form', tweet: @tweet %>
 <% else %>
-  <div class="text-center">
+  <div id="follow-action" class="text-center">
     <% if current_user.is_follow?(@user.id) %>
-      <%= link_to "Unfollow", "", class: "btn btn-danger" %>
+      <%= link_to "Unfollow", user_follow_path(current_user, @user.id), method: :delete, class: "btn btn-danger", data: { confirm: "フォロー解除してもよろしいですか？"} %>
     <% else %>
-      <%= link_to "Follow", "", class: "btn btn-primary" %>
+      <%= link_to "Follow", user_follows_path(current_user, params: {id: @user.id}), method: :post, class: "btn btn-primary" %>
     <% end %>
   </div>
 <% end %>
