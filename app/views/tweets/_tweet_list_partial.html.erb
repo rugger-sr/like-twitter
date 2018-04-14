@@ -1,9 +1,9 @@
 <%
   options = {
-    user_id: nil,
     offset: 0,
   }
-  options[:user_id] = user.id if user.present?
+  options[:user_id] = user.id if defined?(user) and user.present?
+  options[:follow_user_id] = follow_user.id if defined?(follow_user) and follow_user.present?
 %>
 
 <ul class="tweets">

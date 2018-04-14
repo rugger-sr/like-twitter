@@ -48,8 +48,8 @@
                 </tr>
                 <tr>
                   <td><%= current_user.tweets.count.to_s(:delimited) %></td>
-                  <td><%= current_user.follows.count.to_s(:delimited) %></td>
-                  <td><%= current_user.followers.count.to_s(:delimited) %></td>
+                  <td><%= current_user.follow_count.to_s(:delimited) %></td>
+                  <td><%= current_user.follower_count.to_s(:delimited) %></td>
                 </tr>
               </table>
             <% end %>

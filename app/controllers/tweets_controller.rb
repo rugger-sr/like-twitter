@@ -16,6 +16,7 @@ class TweetsController < ApplicationController
 
     options[:time] = params[:time].to_i if params[:time].present?
     options[:user_id] = params[:user_id].to_i if params[:user_id].present?
+    options[:follow_user_id] = params[:follow_user_id].to_i if params[:follow_user_id].present?
     options[:offset] = params[:offset].to_i if params[:offset].present?
 
     render partial: 'search_partial', locals: { tweets: Tweet.search(options), options: options }

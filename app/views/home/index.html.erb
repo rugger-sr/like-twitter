@@ -1,3 +1,5 @@
 <% provide(:title, "Home") %>
 
-<%= render partial: 'tweets/tweet_list_partial', locals: { user: nil } %>
+<hr/>
+
+<%= render partial: 'tweets/tweet_list_partial', locals: { follow_user: @user } %>

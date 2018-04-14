@@ -1,11 +1,21 @@
 <% provide(:title, @user.email) %>
 
+<h2><%= @user.email %></h2>
+
 <% if current_user.id == @user.id %>
   <%
     @tweet = Tweet.new
     @tweet.user = @user
   %>
   <%= render 'tweets/form', tweet: @tweet %>
+<% else %>
+  <div class="text-center">
+    <% if current_user.is_follow?(@user.id) %>
+      <%= link_to "Unfollow", "", class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Follow", "", class: "btn btn-primary" %>
+    <% end %>
+  </div>
 <% end %>
 
 <hr/>
