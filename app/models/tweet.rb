@@ -1,7 +1,7 @@
 class Tweet < ApplicationRecord
-	belongs_to :user
+  belongs_to :user
 
-	MIN_LIST_COUNT = 1
+  MIN_LIST_COUNT = 1
 	MAX_LIST_COUNT = 100
 
   DEFAULT_LIST_COUNT = 10
