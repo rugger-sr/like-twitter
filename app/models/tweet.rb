@@ -9,8 +9,10 @@ class Tweet < ApplicationRecord
 	scope :with_search_options, -> (options) {
 		relation = offset(options[:offset]).limit(options[:limit])
 		relation = relation.where(user_id: options[:user_id]) if options[:user_id].present?
-		relation = relation.where(user_id: Follow.where(user_id: options[:follow_user_id]).select(:target_user_id)) if options[:follow_user_id].present?
-		relation = relation.where('created_at <= ?', Time.at(options[:time])) if options[:time].present?
+		if options[:follow_user_id].present?
+			relation = relation.where("(tweets.user_id=?) OR (tweets.user_id IN (SELECT target_user_id FROM follows WHERE user_id=?))", options[:follow_user_id], options[:follow_user_id])
+		end
+		relation = relation.where('tweets.created_at <= ?', Time.at(options[:time])) if options[:time].present?
 		relation.order(created_at: :desc, id: :desc)
 	}
 

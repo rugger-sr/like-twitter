@@ -16,6 +16,6 @@
   </li>
 <% end %>
 
-<% if tweets.size > 0 %>
+<% if tweets.size > 0 and tweets.size == options[:limit] %>
   <%= render partial: 'tweets/loading', locals: { options: options.merge(offset: options[:offset] + tweets.count) } %>
 <% end %>
