@@ -12,6 +12,5 @@ Rails.application.routes.draw do
     resources :follows, only: [:index, :create, :destroy]
     get :followers, to: 'follows#followers'
   end
-#  get '/tweets' => 'tweets#tweet_list_partial'
   get '/search' => 'tweets#search_partial'
 end
