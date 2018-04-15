@@ -28,6 +28,8 @@ module LikeTwitter
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    config.time_zone = 'Tokyo'
+
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
   end
 end

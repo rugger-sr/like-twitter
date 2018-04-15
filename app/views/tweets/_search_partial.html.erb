@@ -1,13 +1,15 @@
 <% tweets.each do |tweet| %>
   <li class="tweet">
     <div>
-      <%= tweet.user.email %> : posted at <%= tweet.updated_at %>
+      <%= link_to tweet.user.email, user_path(tweet.user), class: "tweet-user" %>
+      :
+      posted at <%= Time.zone.local_to_utc(tweet.updated_at).in_time_zone.strftime('%Y-%m-%d %H:%M:%S') %>
     </div>
-    <div>
+    <div class="tweet-content">
       <%= tweet.content %>
     </div>
     <% if current_user.id == tweet.user_id %>
-      <div>
+      <div class="tweet-action text-right">
         <%= link_to 'Edit', edit_user_tweet_path(current_user, tweet) %>
         |
         <%= link_to 'Destroy', user_tweet_path(current_user, tweet), method: :delete, data: { confirm: 'Are you sure?' } %>

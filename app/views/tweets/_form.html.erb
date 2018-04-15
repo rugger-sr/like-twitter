@@ -12,8 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= form.text_area :content, id: :tweet_content %>
+    <%= form.text_area :content, id: :tweet_content, class: "form-control", placeholder: "いまどうしてる？" %>
     <%= form.hidden_field :from_path, id: :tweet_from_path, value: request.fullpath %>
-    <%= form.submit %>
+  </div>
+  <div class="field text-right">
+    <%= form.submit "Tweet!" %>
   </div>
 <% end %>

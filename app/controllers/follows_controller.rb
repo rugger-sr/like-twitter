@@ -2,11 +2,11 @@ class FollowsController < ApplicationController
   before_action :set_user, only: [:index, :followers, :create, :destroy]
 
   def index
-  	@follows = @user.follows.where.not(target_user_id: current_user.id)
+  	@follows = @user.follows
   end
 
   def followers
-  	@followers = @user.followers.where.not(user_id: current_user.id)
+  	@followers = @user.followers
   end
 
   def create
@@ -23,6 +23,7 @@ class FollowsController < ApplicationController
   def destroy
   	target_user_id = params[:id]
   	follow = @user.follows.find_by(target_user_id: target_user_id)
+  	
   	follow.destroy if follow.present?
   	redirect_to user_path(target_user_id)
   rescue

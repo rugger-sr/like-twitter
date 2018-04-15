@@ -141,6 +141,15 @@ aside {
     &:last-child {
       border-bottom: 1px solid $gray-lighter;
     }
+    .tweet-user {
+      font-weight: bold;
+    }
+    .tweet-content {
+      margin: 1em;
+    }
+    .tweet-action {
+      font-size: smaller;
+    }
   }
 }
 
