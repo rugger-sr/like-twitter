@@ -1,0 +1,8 @@
+<li>
+  <%= link_to user.email, user_path(user) %>
+  (
+  Tweets:<%= user.tweets.count.to_s(:delimited) %>,
+  Follows:<%= user.follows.count.to_s(:delimited) %>,
+  Followers:<%= user.followers.count.to_s(:delimited) %>
+  )
+</li>

@@ -2,8 +2,6 @@
 
 <ul class="users">
   <% @follows.each do |follow| %>
-    <li>
-      <%= link_to follow.target_user.email, user_path(follow.target_user) %>
-    </li>
+    <%= render partial: 'users/list_partial', locals: { user: follow.target_user } %>
   <% end %>
 </ul>
