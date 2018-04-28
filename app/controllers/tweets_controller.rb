@@ -33,6 +33,8 @@ class TweetsController < ApplicationController
   end
 
   def create
+    raise unless verify_user?
+    
     @tweet = Tweet.new(tweet_params)
     @tweet.user = @user
     from_path = params[:tweet][:from_path] if params[:tweet][:from_path]
@@ -49,6 +51,8 @@ class TweetsController < ApplicationController
   end
 
   def update
+    raise unless verify_user?
+    
     from_path = params[:tweet][:from_path] if params[:tweet][:from_path]
     if @tweet.update(tweet_params)
       if from_path.present?
@@ -62,6 +66,8 @@ class TweetsController < ApplicationController
   end
 
   def destroy
+    raise unless verify_user?
+
     from_path = params[:tweet][:from_path] if params[:tweet][:from_path]
     @tweet.destroy
     if from_path.present?
@@ -71,17 +77,21 @@ class TweetsController < ApplicationController
     end
   end
 
-  private
+private
 
-    def set_tweet
-      @tweet = Tweet.find(params[:id])
-    end
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
+  end
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    def tweet_params
-      params.require(:tweet).permit(:user_id, :content)
-    end
+  def tweet_params
+    params.require(:tweet).permit(:user_id, :content)
+  end
+
+  def verify_user?
+    current_user.id == @user&.id
+  end
 end

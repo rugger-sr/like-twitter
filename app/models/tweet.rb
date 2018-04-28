@@ -20,7 +20,7 @@ class Tweet < ApplicationRecord
     options[:offset] = 0 if options[:offset].blank?
     options[:limit] = [[options[:limit] || DEFAULT_LIST_COUNT, MIN_LIST_COUNT].max, MAX_LIST_COUNT].min
 
-    with_search_options(options)
+    with_search_options(options).includes(:user).joins(:user)
   end
 
 end
